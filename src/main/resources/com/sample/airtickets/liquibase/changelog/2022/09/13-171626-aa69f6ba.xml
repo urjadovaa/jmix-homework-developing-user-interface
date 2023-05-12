@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="jmix">
+        <insert tableName="AIRLINE">
+            <column name="ID">813be13a-5d2f-4f32-9f51-13d67468deb4</column>
+            <column name="NAME">Ryanair</column>
+            <column name="IATA_CODE">FR</column>
+            <column name="HOME_COUNTRY">Ireland</column>
+        </insert>
+        <insert tableName="AIRLINE">
+            <column name="ID">3f652890-812d-4758-a80d-035c092db2de</column>
+            <column name="NAME">Lufthansa</column>
+            <column name="IATA_CODE">LH</column>
+            <column name="HOME_COUNTRY">Germany</column>
+        </insert>
+        <insert tableName="AIRLINE">
+            <column name="ID">8c12cd0b-d4e7-4c07-ad96-e342829c930a</column>
+            <column name="NAME">Aeroflot</column>
+            <column name="IATA_CODE">SU</column>
+            <column name="HOME_COUNTRY">Russia</column>
+        </insert>
+        <insert tableName="AIRLINE">
+            <column name="ID">a8a4e1a6-1fd9-46da-afff-150ac6ba13f2</column>
+            <column name="NAME">Alitalia</column>
+            <column name="IATA_CODE">AZ</column>
+            <column name="HOME_COUNTRY">Italy</column>
+        </insert>
+    </changeSet>
+    <changeSet id="2" author="jmix">
+        <insert tableName="AIRPORT">
+            <column name="ID">ef2fb39d-c0cf-4e18-93e2-f2f8a4afac86</column>
+            <column name="NAME">Dublin</column>
+            <column name="CODE">DUB</column>
+            <column name="COUNTRY">Ireland</column>
+        </insert>
+        <insert tableName="AIRPORT">
+            <column name="ID">73fe23c7-bf44-4979-a49e-71609b76b8a8</column>
+            <column name="NAME">Frankfurt</column>
+            <column name="CODE">FRA</column>
+            <column name="COUNTRY">Germany</column>
+        </insert>
+        <insert tableName="AIRPORT">
+            <column name="ID">ebd5b89e-059b-4c75-9d71-5859261cf85a</column>
+            <column name="NAME">Rome–Fiumicino</column>
+            <column name="CODE">FCO</column>
+            <column name="COUNTRY">Italy</column>
+        </insert>
+        <insert tableName="AIRPORT">
+            <column name="ID">6fb2102f-c9c3-407e-8f4c-a0b1f42453f4</column>
+            <column name="NAME">Sheremetyevo</column>
+            <column name="CODE">SVO</column>
+            <column name="COUNTRY">Russia</column>
+        </insert>
+        <insert tableName="AIRPORT">
+            <column name="ID">d2985e26-fefa-42f8-b975-1b3ca631f1e2</column>
+            <column name="NAME">Schiphol</column>
+            <column name="CODE">AMS</column>
+            <column name="COUNTRY">Netherlands</column>
+        </insert>
+    </changeSet>
+    <changeSet id="3" author="jmix">
+        <insert tableName="FLIGHT">
+            <column name="ID">7f20faa3-9e83-4044-a92a-3f08b0615bf6</column>
+            <column name="NUMBER_">153</column>
+            <column name="AIRLINE_ID">3f652890-812d-4758-a80d-035c092db2de</column>
+            <column name="FROM_AIRPORT_ID">73fe23c7-bf44-4979-a49e-71609b76b8a8</column>
+            <column name="TO_AIRPORT_ID">ebd5b89e-059b-4c75-9d71-5859261cf85a</column>
+            <column name="TAKE_OFF_DATE">2022-09-15 12:15:00</column>
+        </insert>
+        <insert tableName="FLIGHT">
+            <column name="ID">079a3230-7825-45e4-a282-ba7202834319</column>
+            <column name="NUMBER_">989</column>
+            <column name="AIRLINE_ID">3f652890-812d-4758-a80d-035c092db2de</column>
+            <column name="FROM_AIRPORT_ID">73fe23c7-bf44-4979-a49e-71609b76b8a8</column>
+            <column name="TO_AIRPORT_ID">6fb2102f-c9c3-407e-8f4c-a0b1f42453f4</column>
+            <column name="TAKE_OFF_DATE">2022-09-16 21:50:00</column>
+        </insert>
+        <insert tableName="FLIGHT">
+            <column name="ID">0390dfc9-e809-4336-912b-e65f0697157e</column>
+            <column name="NUMBER_">786</column>
+            <column name="AIRLINE_ID">813be13a-5d2f-4f32-9f51-13d67468deb4</column>
+            <column name="FROM_AIRPORT_ID">ef2fb39d-c0cf-4e18-93e2-f2f8a4afac86</column>
+            <column name="TO_AIRPORT_ID">d2985e26-fefa-42f8-b975-1b3ca631f1e2</column>
+            <column name="TAKE_OFF_DATE">2022-09-17 00:35:00</column>
+        </insert>
+        <insert tableName="FLIGHT">
+            <column name="ID">03919cc7-0f84-4c95-8c06-f6ea0b778c20</column>
+            <column name="NUMBER_">363</column>
+            <column name="AIRLINE_ID">8c12cd0b-d4e7-4c07-ad96-e342829c930a</column>
+            <column name="FROM_AIRPORT_ID">6fb2102f-c9c3-407e-8f4c-a0b1f42453f4</column>
+            <column name="TO_AIRPORT_ID">ebd5b89e-059b-4c75-9d71-5859261cf85a</column>
+            <column name="TAKE_OFF_DATE">2022-09-15 18:20:00</column>
+        </insert>
+        <insert tableName="FLIGHT">
+            <column name="ID">d9ff28e5-c4f8-4a98-a9d8-9c4be62e76d1</column>
+            <column name="NUMBER_">1483</column>
+            <column name="AIRLINE_ID">a8a4e1a6-1fd9-46da-afff-150ac6ba13f2</column>
+            <column name="FROM_AIRPORT_ID">ebd5b89e-059b-4c75-9d71-5859261cf85a</column>
+            <column name="TO_AIRPORT_ID">73fe23c7-bf44-4979-a49e-71609b76b8a8</column>
+            <column name="TAKE_OFF_DATE">2022-09-16 05:30:00</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
