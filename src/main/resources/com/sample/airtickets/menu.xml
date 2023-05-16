@@ -6,4 +6,10 @@
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
     </menu>
 
+    <menu id="referenceData" caption="msg://com.sample.airtickets/menu_config.referenceData" insertBefore="administration"
+          icon="BOOK">
+        <item screen="Airline.browse" caption="msg://com.sample.airtickets.screen.airline/airlineBrowse.menu"/>
+        <item screen="Airport.browse" caption="msg://com.sample.airtickets.screen.airport/airportBrowse.menu"/>
+    </menu>
+
 </menu-config>
