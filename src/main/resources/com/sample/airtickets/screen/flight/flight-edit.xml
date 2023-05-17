@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://flightEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="flightDc"
+                  class="com.sample.airtickets.entity.Flight">
+            <fetchPlan extends="_base">
+                <property name="fromAirport" fetchPlan="_base"/>
+                <property name="toAirport" fetchPlan="_base"/>
+                <property name="airline" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="flightDc">
+            <column width="350px">
+                <textField id="numberField" property="number"/>
+                <entitySuggestionField id="airlineField"
+                                       property="airline"
+                                       minSearchStringLength="2">
+                    <query entityClass="com.sample.airtickets.entity.Airline"
+                           escapeValueForLike="true"
+                           searchStringFormat="%${searchString}%"
+                           fetchPlan="_instance_name">
+                        <![CDATA[select e from Airline e
+                        where lower(e.name) like lower(:searchString)]]>
+                    </query>
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entitySuggestionField>
+                <dateField id="takeOffDateField" property="takeOffDate"/>
+            </column>
+            <column width="350px">
+                <entityPicker id="fromAirportField" property="fromAirport">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <entityPicker id="toAirportField" property="toAirport">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
