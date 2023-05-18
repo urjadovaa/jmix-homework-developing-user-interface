@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://ticketEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="ticketDc"
+                  class="com.sample.airtickets.entity.Ticket">
+            <fetchPlan extends="_base">
+                <property name="flight" fetchPlan="_instance_name">
+                    <property name="fromAirport" fetchPlan="_base"/>
+                    <property name="toAirport" fetchPlan="_base"/>
+                    <property name="airline" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="ticketDc" enable="false">
+            <column width="350px">
+                <entityPicker id="flightField" property="flight">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <textField id="passengerNameField" property="passengerName"/>
+                <textField id="passportNumberField" property="passportNumber"/>
+                <textField id="telephoneField" property="telephone"/>
+                <textField id="reservationIdField" property="reservationId"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <!--<button id="commitAndCloseBtn" action="windowCommitAndClose"/>-->
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -24,6 +24,18 @@
         <action id="clearFilter" caption="msg://clearFilter" icon="CLOSE"/>
     </actions>
 
+    <facets>
+        <inputDialog id="inputDialog"
+                     caption="msg://reserveTicket"
+                     dialogActions="OK_CANCEL">
+            <parameters>
+                <stringParameter id="passengerName" caption="msg://passengerName" required="true"/>
+                <stringParameter id="passportNumber" caption="msg://passportNumber" required="true"/>
+                <stringParameter id="telephone" caption="msg://telephone" required="true"/>
+            </parameters>
+        </inputDialog>
+    </facets>
+
     <layout expand="flightsTable">
 
         <groupBox orientation="horizontal" expand="fromToBox" width="100%" spacing="true" id="filterBox" caption="msg://filterBox.caption">
@@ -45,6 +57,7 @@
                 <column id="toAirport"/>
                 <column id="airline"/>
                 <column id="takeOffDate"/>
+                <column id="actions" caption="msg://actions"/>
             </columns>
         </table>
 

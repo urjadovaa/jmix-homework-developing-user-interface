@@ -3,11 +3,15 @@ package com.sample.airtickets.screen.ticketreservation;
 import com.sample.airtickets.app.TicketService;
 import com.sample.airtickets.entity.Airport;
 import com.sample.airtickets.entity.Flight;
+import com.sample.airtickets.entity.Ticket;
+import io.jmix.core.DataManager;
 import io.jmix.ui.Notifications;
+import io.jmix.ui.ScreenBuilders;
+import io.jmix.ui.UiComponents;
 import io.jmix.ui.action.Action;
-import io.jmix.ui.component.DateField;
-import io.jmix.ui.component.EntityComboBox;
-import io.jmix.ui.component.ProgressBar;
+import io.jmix.ui.app.inputdialog.DialogOutcome;
+import io.jmix.ui.app.inputdialog.InputDialog;
+import io.jmix.ui.component.*;
 import io.jmix.ui.executor.BackgroundTask;
 import io.jmix.ui.executor.BackgroundTaskHandler;
 import io.jmix.ui.executor.BackgroundWorker;
@@ -45,6 +49,16 @@ public class TicketReservation extends Screen {
     private BackgroundWorker backgroundWorker;
     @Autowired
     private ProgressBar searchProgress;
+    @Autowired
+    private UiComponents uiComponents;
+    @Autowired
+    private ScreenBuilders screenBuilders;
+    @Autowired
+    private InputDialogFacet inputDialog;
+    @Autowired
+    private DataManager dataManager;
+    @Autowired
+    private Table<Flight> flightsTable;
 
 
     @Subscribe
@@ -62,7 +76,6 @@ public class TicketReservation extends Screen {
 
     // загрузчик рейсов
     public void loadFlights() {
-
         // Если все пустые - то вывести уведомление-warning "Please fill at least one filter field".
         if (from.getValue() == null && to.getValue() == null && departureDate.getValue() == null) {
             notifications.create(Notifications.NotificationType.WARNING).
@@ -103,6 +116,46 @@ public class TicketReservation extends Screen {
         to.clear();
         departureDate.clear();
         flightsDc.setItems(null);
+    }
+
+
+    // Действие должно быть доступно как генерируемая колонка (custom / generated column) в таблице рейсов
+    @Install(to = "flightsTable.actions", subject = "columnGenerator")
+    private Component flightsTableActionsColumnGenerator(Flight flight) {
+        LinkButton linkButton = uiComponents.create(LinkButton.class);
+        linkButton.setCaption(messageBundle.getMessage("reserveAction"));
+        linkButton.addClickListener(clickEvent -> {
+            // открытие окна ввода
+            inputDialog.create().show();
+        });
+        return linkButton;
+    }
+
+
+    @Subscribe("inputDialog")
+    public void onInputDialogInputDialogClose(InputDialog.InputDialogCloseEvent event) {
+        if (event.closedWith(DialogOutcome.OK)) {
+            if (flightsTable.getSingleSelected() == null) return;
+            // Введенные пользователем значения проставить в создаваемый Ticket.
+            Ticket ticket = dataManager.create(Ticket.class);
+            ticket.setFlight(flightsTable.getSingleSelected());
+            ticket.setPassengerName(event.getValue("passengerName"));
+            ticket.setPassportNumber(event.getValue("passportNumber"));
+            ticket.setTelephone(event.getValue("telephone"));
+            ticket = ticketService.saveTicket(ticket);
+            //  После этого открыть экран просмотра с созданным билетом.
+            //  Просмотр билета должен открыться не в текущей, а в отдельной вкладке (NEW_TAB)
+            screenBuilders.editor(Ticket.class, this)
+                    .editEntity(ticket)
+                    .withOpenMode(OpenMode.NEW_TAB)
+                    .show();
+        }
+        if (event.closedWith(DialogOutcome.CANCEL)) {
+            // Если диалог закрыт по Cancel - прервать процесс покупки билета
+            notifications.create(Notifications.NotificationType.HUMANIZED)
+                    .withCaption(messageBundle.getMessage("appMessage"))
+                    .withDescription(messageBundle.getMessage("ticketReservationCancel")).show();
+        }
     }
 
 
