@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://ticketReservation.caption">
+    <data>
+        <collection id="airportsDc" class="com.sample.airtickets.entity.Airport">
+            <fetchPlan extends="_base"/>
+            <loader id="airportsDl">
+                <query>
+                    <![CDATA[select e from Airport e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="flightsDc" class="com.sample.airtickets.entity.Flight">
+            <fetchPlan extends="_base">
+                <property name="fromAirport" fetchPlan="_base"/>
+                <property name="toAirport" fetchPlan="_base"/>
+                <property name="airline" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="flightsDl"/>
+        </collection>
+    </data>
+    <actions>
+        <action id="searchFlights" caption="msg://search" icon="font-icon:SEARCH"/>
+        <action id="clearFilter" caption="msg://clearFilter" icon="CLOSE"/>
+    </actions>
+
+    <layout expand="flightsTable">
+
+        <groupBox orientation="horizontal" expand="fromToBox" width="100%" spacing="true" id="filterBox" caption="msg://filterBox.caption">
+            <hbox id="fromToBox" spacing="true">
+                <entityComboBox width="100%" id="from" caption="msg://from" optionsContainer="airportsDc"/>
+                <entityComboBox width="100%" id="to" caption="msg://to" optionsContainer="airportsDc"/>
+            </hbox>
+            <dateField id="departureDate" caption="msg://departureDate" resolution="DAY" datatype="offsetDateTime"/>
+            <button id="clearFilter" action="clearFilter" align="BOTTOM_RIGHT"/>
+            <button id="search" action="searchFlights" align="BOTTOM_RIGHT"/>
+        </groupBox>
+
+        <progressBar id="searchProgress" visible="false" width="100%" indeterminate="true"/>
+
+        <table id="flightsTable" width="100%" dataContainer="flightsDc">
+            <columns>
+                <column id="number"/>
+                <column id="fromAirport"/>
+                <column id="toAirport"/>
+                <column id="airline"/>
+                <column id="takeOffDate"/>
+            </columns>
+        </table>
+
+
+    </layout>
+</window>

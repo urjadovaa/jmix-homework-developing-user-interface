@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/ui/menu">
 
-    <menu id="application" caption="msg://com.sample.airtickets/menu.application" insertBefore="administration">
-        <item screen="User.browse" caption="msg://com.sample.airtickets.screen.user/UserBrowse.caption"/>
-        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
-    </menu>
+    <item screen="TicketReservation" caption="msg://com.sample.airtickets/menu_config.TicketReservation" icon="TICKET"
+          insertBefore="administration"/>
 
-    <menu id="referenceData" caption="msg://com.sample.airtickets/menu_config.referenceData" insertBefore="administration"
-          icon="BOOK">
+    <menu id="referenceData" caption="msg://com.sample.airtickets/menu_config.referenceData" icon="BOOK"
+          insertBefore="administration">
         <item screen="Airline.browse" caption="msg://com.sample.airtickets.screen.airline/airlineBrowse.menu"/>
         <item screen="Airport.browse" caption="msg://com.sample.airtickets.screen.airport/airportBrowse.menu"/>
         <item screen="Flight.browse" caption="msg://com.sample.airtickets.screen.flight/flightBrowse.menu"/>
+    </menu>
+
+    <menu id="application" caption="msg://com.sample.airtickets/menu.application" insertBefore="administration">
+        <item screen="User.browse" caption="msg://com.sample.airtickets.screen.user/UserBrowse.caption"/>
+        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
     </menu>
 
 </menu-config>
