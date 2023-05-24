@@ -74,16 +74,16 @@
                   orientation="horizontal"
                   collapsable="true"
                   spacing="true"
-                  width="AUTO"
+                  width="100%"
                   caption="msg://filter">
 
-            <entityComboBox id="airport"
-                            caption="msg://airport.caption"
-                            optionsContainer="airportsDc"/>
-
-            <dateField id="takeOffFrom" caption="msg://takeOffFrom" datatype="offsetDateTime"/>
-
-            <dateField id="takeOffTo" caption="msg://takeOffTo" datatype="offsetDateTime"/>
+            <hbox spacing="true">
+                <entityComboBox id="airport"
+                                    caption="msg://airport.caption"
+                                    optionsContainer="airportsDc"/>
+                <dateField id="takeOffFrom" caption="msg://takeOffFrom" datatype="offsetDateTime"/>
+                <dateField id="takeOffTo" caption="msg://takeOffTo" datatype="offsetDateTime"/>
+            </hbox>
 
         </groupBox>
 

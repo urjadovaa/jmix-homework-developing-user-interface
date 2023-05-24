@@ -36,7 +36,7 @@
         </inputDialog>
     </facets>
 
-    <layout expand="flightsTable">
+    <layout expand="flightsTable" spacing="true">
 
         <groupBox orientation="horizontal" expand="fromToBox" width="100%" spacing="true" id="filterBox" caption="msg://filterBox.caption">
             <hbox id="fromToBox" spacing="true">
